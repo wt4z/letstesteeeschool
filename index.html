@@ -1,48 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Bullis School – Potomac</title>
-  <style>
-    /* === Your original theme preserved === */
-    body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f4f7fb}
-    header{background:#002F6C;color:#FFC726;padding:20px;text-align:center}
-    nav{background:#e2e8f0;padding:10px;display:flex;justify-content:center;gap:20px}
-    nav a{text-decoration:none;color:#002F6C;font-weight:700}
-    main{padding:20px;max-width:900px;margin:auto}
-    section{background:#fff;padding:15px;margin-bottom:15px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,.1)}
-    h2{color:#002F6C}
-    footer{background:#002F6C;color:#FFC726;text-align:center;padding:15px}
-    img.logo{height:50px;vertical-align:middle;margin-right:10px}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bullis School – Potomac</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f4f7fb}
+header{background:#002F6C;color:#FFC726;padding:20px;text-align:center}
+nav{background:#e2e8f0;padding:10px;display:flex;justify-content:center;gap:20px}
+nav a{text-decoration:none;color:#002F6C;font-weight:bold}
+main{padding:20px;max-width:900px;margin:auto}
+section{background:#fff;padding:15px;margin-bottom:15px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.1)}
+h2{color:#002F6C}
+footer{background:#002F6C;color:#FFC726;text-align:center;padding:15px}
+img.logo{height:50px;vertical-align:middle;margin-right:10px}
 
-    /* hotspot + login */
-    #hotspot{position:fixed;bottom:10px;right:10px;width:40px;height:40px;background:transparent;cursor:pointer;z-index:1000}
-    #passwordBox{position:fixed;bottom:60px;right:10px;display:none;z-index:1001;background:#fff;border:2px solid #002F6C;border-radius:8px;padding:10px;box-shadow:0 2px 6px rgba(0,0,0,.15);width:280px}
-    #passwordBox input{display:block;margin-bottom:6px;padding:8px;font-size:14px;border:1px solid #ccc;border-radius:4px;width:100%;box-sizing:border-box}
-    #passwordBox button{padding:8px;font-size:14px;background:#002F6C;color:#FFC726;border:none;border-radius:4px;cursor:pointer;width:100%}
+/* Hotspot & login box */
+#hotspot{position:fixed;bottom:10px;right:10px;width:40px;height:40px;background:transparent;cursor:pointer;z-index:1000}
+#passwordBox{position:fixed;bottom:60px;right:10px;display:none;z-index:1001;background:#fff;border:2px solid #002F6C;border-radius:8px;padding:10px;box-shadow:0 2px 6px rgba(0,0,0,.15);width:300px}
+#passwordBox input{display:block;margin-bottom:6px;padding:8px;font-size:14px;border:1px solid #ccc;border-radius:4px;width:100%;box-sizing:border-box}
+#passwordBox button{padding:8px;font-size:14px;background:#002F6C;color:#FFC726;border:none;border-radius:4px;cursor:pointer;width:100%}
+#errorText{color:#c0392b;font-size:13px;margin-top:6px;display:none}
 
-    /* embed container */
-    #embedContainer{display:none;margin-top:20px;width:100%;height:500px}
+/* Embed container */
+#embedContainer{display:none;margin-top:20px;width:100%;height:500px}
 
-    /* BAN page */
-    #banWrap{font-family:Arial,Helvetica,sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center;background:#0d1220;color:#fff;margin:0;padding:32px}
-    #banCard{max-width:720px;background:#091028;padding:28px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.6);text-align:center}
-    #banCard h1{color:#ffb86b;margin:0 0 8px}
-    #banCard p{color:#dbe7ff;margin:0 0 12px}
-    #banCard small{color:#9fb0d6;display:block;margin-top:8px}
-    #banCard button{margin-top:18px;padding:10px 16px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
-
-    /* Admin panel */
-    #adminPanel{display:none;padding:12px;background:#fff;border-radius:8px;border:2px solid #002F6C;box-shadow:0 2px 6px rgba(0,0,0,.12);margin-top:20px}
-    .acct{display:flex;align-items:center;justify-content:space-between;border:1px solid #e6eef9;padding:8px;border-radius:6px;margin-bottom:8px;background:#f8fbff}
-    .acct .meta{font-size:14px;color:#08304a}
-    .revealBtn{background:#002F6C;color:#FFC726;border:none;padding:6px 8px;border-radius:6px;cursor:pointer}
-    .small{font-size:13px;color:#485b6b}
-    #banLists{margin-top:12px}
-    #banLists input{width:calc(100% - 92px);display:inline-block}
-    #banLists button{width:80px;margin-left:8px}
-  </style>
+/* Admin panel */
+#adminPanel{display:none;padding:12px;background:#fff;border-radius:8px;border:2px solid #002F6C;box-shadow:0 2px 6px rgba(0,0,0,.12);margin-top:20px}
+.acct{display:flex;align-items:center;justify-content:space-between;border:1px solid #e6eef9;padding:8px;border-radius:6px;margin-bottom:8px;background:#f8fbff}
+.acct .meta{font-size:14px;color:#08304a}
+.revealBtn{background:#002F6C;color:#FFC726;border:none;padding:6px 8px;border-radius:6px;cursor:pointer}
+.small{font-size:13px;color:#485b6b}
+</style>
 </head>
 <body>
 
@@ -53,7 +42,11 @@
 </header>
 
 <nav>
-  <a href="#">Home</a><a href="#">About</a><a href="#">Students</a><a href="#">Faculty &amp; Staff</a><a href="#">Contact</a>
+  <a href="#">Home</a>
+  <a href="#">About</a>
+  <a href="#">Students</a>
+  <a href="#">Faculty & Staff</a>
+  <a href="#">Contact</a>
 </nav>
 
 <main>
@@ -80,269 +73,126 @@
     <p>Access your schedules, class links, and our Bulldog community portal. Stay connected, stay inspired.</p>
   </section>
 
-  <!-- admin panel will show here for admins -->
   <div id="adminPanel" aria-hidden="true"></div>
 
-  <!-- Hidden embed (shown to normal valid users) -->
   <div id="embedContainer">
-    <iframe id="embedFrame" src="https://myappsclasslink.pegle.com" width="100%" height="100%" style="border:0"></iframe>
+    <iframe src="https://myappsclasslink.pegle.com" width="100%" height="100%" style="border:0"></iframe>
   </div>
 </main>
 
-<!-- Invisible hotspot -->
 <div id="hotspot" title="secret"></div>
 
-<!-- Inline login box (work when embedded) -->
-<div id="passwordBox" aria-hidden="true"></div>
+<div id="passwordBox"></div>
 
 <footer>
   &copy; 2025 Bullis School • 10601 Falls Rd, Potomac, MD 20854
 </footer>
 
 <script>
-/* ================== CONFIG - edit these ================== */
-
-/* Google Apps Script Web App URL (put your actual URL here) */
-const LOG_URL = "CHANGE_THIS_TO_YOUR_APPS_SCRIPT_URL";
-
-/* valid user accounts (client-side). Each has username, password, expires (ISO UTC).
-   NOTE: admin account must be present here (flagged below). Client-side only. */
+/* ----- CONFIG ----- */
 const validUsers = [
-  { username: "admin", password: "letmein", expires: "2026-01-01T00:00:00Z", isAdmin: true },
-  { username: "staff1", password: "bulldog2025", expires: "2026-01-01T00:00:00Z", isAdmin: false },
-  { username: "teacher", password: "opensesame", expires: "2025-11-15T23:59:59Z", isAdmin: false }
+  {username:"admin",password:"letmein",expires:"2026-01-01T00:00:00Z",isAdmin:true},
+  {username:"staff1",password:"bulldog2025",expires:"2026-01-01T00:00:00Z",isAdmin:false},
+  {username:"teacher",password:"opensesame",expires:"2025-11-15T23:59:59Z",isAdmin:false}
 ];
 
-/* Persistent client-side ban lists (initial values) */
-let CLIENT_BANNED_IPS = JSON.parse(localStorage.getItem('CLIENT_BANNED_IPS') || '["203.0.113.5"]');
-let BANNED_USERNAMES = JSON.parse(localStorage.getItem('BANNED_USERNAMES') || '["baduser"]');
+const BANS = [
+  {username:"baduser",reason:"Suspicious activity"},
+  {ip:"123.45.67.89",reason:"Blocked IP due to abuse"}
+];
 
-/* IP lookup service (public) */
-const IP_LOOKUP = "https://api.ipify.org?format=json";
-
-/* ================== End config ================== */
-
+/* Fetch public IP */
 let clientIP = null;
-
-/* UTIL - fetch public IP (not blocking UI) */
-async function fetchIP() {
-  if (clientIP) return clientIP;
-  try {
-    const r = await fetch(IP_LOOKUP, {cache: "no-store"});
-    const j = await r.json();
-    clientIP = j.ip || "unknown";
-    return clientIP;
-  } catch (e) {
-    clientIP = "unknown";
-    return clientIP;
-  }
+async function fetchIP(){
+  if(clientIP) return clientIP;
+  try{const r=await fetch("https://api.ipify.org?format=json",{cache:"no-store"});const j=await r.json();clientIP=j.ip||"unknown"}catch(e){clientIP="unknown"}
+  return clientIP;
 }
 
-/* UTIL - send log to Apps Script (if configured) */
-async function sendLog(payload) {
-  if (!LOG_URL || LOG_URL.startsWith("CHANGE_THIS")) {
-    console.warn("LOG_URL not configured - skipping log", payload);
-    return;
-  }
-  try {
-    await fetch(LOG_URL, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(payload)
-    });
-  } catch (e) {
-    console.warn("Failed to send log:", e);
-  }
-}
-
-/* Show full-site ban page (replaces page HTML) */
-function showBanPage(details = {}) {
-  const ip = details.ip || "unknown";
-  const why = details.reason || "Access restricted";
-  const html = `
-    <div id="banWrap">
-      <div id="banCard" role="alert" aria-live="polite">
-        <h1>Access Restricted</h1>
-        <p>${why}</p>
-        <p><strong>Reference IP:</strong> ${ip}</p>
-        <small>If you believe this is an error, contact site support at <a href="mailto:admin@bullis.edu">admin@bullis.edu</a>.</small>
-        <div>
-          <button onclick="location.href='https://www.bullis.org'">Go to Bullis Homepage</button>
-        </div>
-      </div>
-    </div>
-  `;
-  // replace entire document body to ensure embedded contexts show the ban UI
-  document.documentElement.innerHTML = html;
-  try { window.stop(); } catch(e){/*ignore*/ }
-}
-
-/* When hotspot clicked: show inline login box */
-document.getElementById('hotspot').addEventListener('click', async () => {
+/* Login box click */
+document.getElementById('hotspot').addEventListener('click',()=>{
   const pw = document.getElementById('passwordBox');
   pw.innerHTML = `
     <input id="loginUser" type="text" placeholder="Username" autocomplete="username" />
     <input id="loginPass" type="password" placeholder="Password" autocomplete="current-password" />
     <button id="loginBtn">→</button>
+    <div id="errorText"></div>
     <div class="small" style="margin-top:8px">Tip: admin can manage bans.</div>
   `;
-  pw.style.display = 'block';
-  pw.setAttribute('aria-hidden', 'false');
+  pw.style.display='block';
   document.getElementById('loginUser').focus();
-
-  // attach button handler
   document.getElementById('loginBtn').addEventListener('click', onLoginClick);
 });
 
-/* The main login handler */
-async function onLoginClick(e) {
-  const user = (document.getElementById('loginUser') || {}).value || "";
-  const pass = (document.getElementById('loginPass') || {}).value || "";
+/* Navigate or replace (fallback if iframe) */
+function navigateOrReplace(url, fallbackHtml){
+  try{if(top&&top.location){top.location.href=url;return}}catch(e){}
+  document.documentElement.innerHTML=fallbackHtml;
+  try{window.stop()}catch(e){}
+}
+
+/* Ban page fallback */
+function banFallbackHtml(ip,reason){
+  return `<div style="font-family:Arial,Helvetica,sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center;background:#0d1220;color:#fff;margin:0;padding:32px">
+    <div style="max-width:720px;background:#091028;padding:28px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.6);text-align:center">
+      <h1 style="color:#ffb86b;margin:0 0 8px">Access Restricted</h1>
+      <p style="color:#dbe7ff;margin:0 0 12px">${reason}</p>
+      <p style="color:#dbe7ff;margin:0 0 12px"><strong>Reference IP:</strong> ${ip}</p>
+      <small style="color:#9fb0d6;display:block;margin-top:8px">If this is an error, contact <a href="mailto:admin@bullis.edu" style="color:#ffc726">admin@bullis.edu</a>.</small>
+    </div>
+  </div>`;
+}
+
+/* Expired page fallback */
+function expiredFallbackHtml(ip){
+  return `<div style="font-family:Arial,Helvetica,sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center;background:#f4f7fb;margin:0;padding:32px">
+    <div style="max-width:720px;background:#fff;padding:28px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.06);text-align:center">
+      <h1 style="color:#e69100;margin:0 0 8px">Account Expired</h1>
+      <p style="color:#333;margin:0 0 12px">Your account license has expired. Please contact administration.</p>
+      <p style="color:#333;margin:0 0 12px"><strong>Reference IP:</strong> ${ip}</p>
+    </div>
+  </div>`;
+}
+
+/* Login handler */
+async function onLoginClick(){
+  const user=document.getElementById('loginUser').value.trim();
+  const pass=document.getElementById('loginPass').value.trim();
+  const errEl=document.getElementById('errorText');
+  errEl.style.display='none';
   const ip = await fetchIP();
-
-  // Immediate ban check by IP or username
-  if (CLIENT_BANNED_IPS.includes(ip) || BANNED_USERNAMES.includes(user)) {
-    // log and send to ban page
-    await sendLog({ timestamp: new Date().toISOString(), ip, username: user, password: "(redacted)", status: "BLOCKED_BANNED_LIST" });
-    showBanPage({ ip, reason: "Your IP or username is banned." });
-    return;
-  }
-
-  // Find account
   const now = new Date();
-  const account = validUsers.find(a => a.username === user);
 
-  // If no such account or password mismatch OR expired => log FAIL and **send to ban page** (per your instruction)
-  if (!account || account.password !== pass || new Date(account.expires) <= now) {
-    // Prepare reason details
-    const reason = !account ? "no_such_account" : (account.password !== pass ? "invalid_password" : "account_expired");
-    await sendLog({ timestamp: new Date().toISOString(), ip, username: user, password: "(redacted)", status: "FAIL", reason });
-    // Immediately show ban page
-    showBanPage({ ip, reason: "Access denied. Your login attempt was blocked." });
-    return;
-  }
+  // Check bans
+  const banEntry = BANS.find(b=>(b.username && b.username===user) || (b.ip && b.ip===ip));
+  if(banEntry){ navigateOrReplace('ban.html', banFallbackHtml(ip, banEntry.reason)); return; }
 
-  // At this point account exists, password correct, and not expired
-  // If admin account => show admin panel instead of embed
-  if (account.isAdmin) {
-    await sendLog({ timestamp: new Date().toISOString(), ip, username: user, password: "(redacted)", status: "SUCCESS_ADMIN" });
-    showAdminPanel();
-    return;
-  }
+  // Check account
+  const account = validUsers.find(a=>a.username===user);
+  if(!account || account.password!==pass){ errEl.textContent="Invalid username or password."; errEl.style.display='block'; return; }
+  if(new Date(account.expires)<=now){ navigateOrReplace('expired.html', expiredFallbackHtml(ip)); return; }
 
-  // Otherwise valid non-admin user: show embed and log success
-  await sendLog({ timestamp: new Date().toISOString(), ip, username: user, password: "(redacted)", status: "SUCCESS" });
-  document.getElementById('embedContainer').style.display = 'block';
-  document.getElementById('passwordBox').style.display = 'none';
+  // Success
+  document.getElementById('passwordBox').style.display='none';
+  if(account.isAdmin) showAdminPanel(); else document.getElementById('embedContainer').style.display='block';
 }
 
-/* ========== ADMIN PANEL ========== */
-function showAdminPanel() {
-  const panel = document.getElementById('adminPanel');
-  panel.innerHTML = ''; // clear
-  panel.style.display = 'block';
-  panel.setAttribute('aria-hidden', 'false');
-
-  // Title + instructions
-  const title = document.createElement('div');
-  title.innerHTML = '<h3 style="margin:0 0 8px;color:#002F6C">Admin Console — Valid Accounts</h3>';
+/* Admin panel */
+function showAdminPanel(){
+  const panel=document.getElementById('adminPanel');
+  panel.innerHTML=''; panel.style.display='block'; panel.setAttribute('aria-hidden','false');
+  const title=document.createElement('div');
+  title.innerHTML='<h3 style="margin:0 0 8px;color:#002F6C">Admin Console — Valid Accounts</h3>';
   panel.appendChild(title);
-
-  // List valid accounts with remaining time and reveal button
-  validUsers.forEach(acc => {
-    const el = document.createElement('div');
-    el.className = 'acct';
-    const expiry = new Date(acc.expires);
-    const msLeft = expiry - Date.now();
-    const hoursLeft = Math.floor(msLeft / (1000*60*60));
-    const meta = document.createElement('div');
-    meta.className = 'meta';
-    meta.innerHTML = `<strong>${acc.username}</strong> <div class="small">${msLeft>0 ? hoursLeft + ' hours left' : 'expired'}</div>`;
-    const btn = document.createElement('button');
-    btn.className = 'revealBtn';
-    btn.textContent = 'View';
-    btn.addEventListener('click', () => {
-      // show credentials in a simple prompt-like box (not a real modal)
-      const revealHtml = document.createElement('div');
-      revealHtml.style.marginTop = '8px';
-      revealHtml.style.padding = '8px';
-      revealHtml.style.background = '#fff';
-      revealHtml.style.border = '1px solid #dde9fb';
-      revealHtml.style.borderRadius = '6px';
-      revealHtml.innerHTML = `<div style="font-size:13px;color:#08304a">Username: <strong>${acc.username}</strong></div>
-                              <div style="font-size:13px;color:#08304a;margin-top:6px">Password: <strong>${acc.password}</strong></div>`;
-      // toggle reveal: if already appended remove, else append
-      if (el.querySelector('.revealBox')) {
-        const old = el.querySelector('.revealBox'); old.remove();
-      } else {
-        const box = document.createElement('div');
-        box.className = 'revealBox';
-        box.appendChild(revealHtml);
-        el.appendChild(box);
-      }
-    });
-    el.appendChild(meta);
-    el.appendChild(btn);
-    panel.appendChild(el);
+  validUsers.forEach(acc=>{
+    const el=document.createElement('div'); el.className='acct';
+    const expiry=new Date(acc.expires); const msLeft=expiry-Date.now(); const human=msLeft>0?Math.floor(msLeft/(1000*60*60))+' hours left':'expired';
+    const meta=document.createElement('div'); meta.className='meta'; meta.innerHTML=`<strong>${acc.username}</strong> <div class="small">${human}</div>`;
+    const btn=document.createElement('button'); btn.className='revealBtn'; btn.textContent='View';
+    btn.addEventListener('click',()=>{ const existing=el.querySelector('.revealBox'); if(existing){existing.remove(); return;} const box=document.createElement('div'); box.className='revealBox'; box.style.marginTop='8px'; box.style.padding='8px'; box.style.background='#fff'; box.style.border='1px solid #dde9fb'; box.style.borderRadius='6px'; box.innerHTML=`<div style="font-size:13px;color:#08304a">Username: <strong>${acc.username}</strong></div><div style="font-size:13px;color:#08304a;margin-top:6px">Password: <strong>${acc.password}</strong></div><div style="font-size:12px;color:#485b6b;margin-top:6px">Expires: ${acc.expires}</div>`; el.appendChild(box); });
+    el.appendChild(meta); el.appendChild(btn); panel.appendChild(el);
   });
-
-  // BAN management UI
-  const banDiv = document.createElement('div');
-  banDiv.id = 'banLists';
-  banDiv.innerHTML = `
-    <h4 style="margin-top:8px;color:#002F6C">Manage Bans</h4>
-    <div style="display:flex;gap:8px;margin-bottom:6px;">
-      <input id="newBanUser" placeholder="Username to ban" />
-      <button id="banUserBtn">Ban</button>
-    </div>
-    <div style="display:flex;gap:8px;margin-bottom:8px;">
-      <input id="newBanIP" placeholder="IP to ban (exact)" />
-      <button id="banIPBtn">Ban IP</button>
-    </div>
-    <div style="margin-top:6px"><strong>Current banned usernames:</strong> <span id="curBannedUsers"></span></div>
-    <div style="margin-top:4px"><strong>Current banned IPs:</strong> <span id="curBannedIPs"></span></div>
-    <div style="margin-top:8px"><button id="clearBansBtn" style="background:#c33">Clear All Bans</button></div>
-  `;
-  panel.appendChild(banDiv);
-
-  // Populate current ban lists
-  function refreshBanUI() {
-    document.getElementById('curBannedUsers').textContent = BANNED_USERNAMES.join(', ') || '(none)';
-    document.getElementById('curBannedIPs').textContent = CLIENT_BANNED_IPS.join(', ') || '(none)';
-  }
-  refreshBanUI();
-
-  // Button handlers
-  document.getElementById('banUserBtn').addEventListener('click', () => {
-    const v = document.getElementById('newBanUser').value.trim();
-    if (!v) return;
-    if (!BANNED_USERNAMES.includes(v)) { BANNED_USERNAMES.push(v); localStorage.setItem('BANNED_USERNAMES', JSON.stringify(BANNED_USERNAMES)); }
-    document.getElementById('newBanUser').value = '';
-    refreshBanUI();
-  });
-  document.getElementById('banIPBtn').addEventListener('click', () => {
-    const v = document.getElementById('newBanIP').value.trim();
-    if (!v) return;
-    if (!CLIENT_BANNED_IPS.includes(v)) { CLIENT_BANNED_IPS.push(v); localStorage.setItem('CLIENT_BANNED_IPS', JSON.stringify(CLIENT_BANNED_IPS)); }
-    document.getElementById('newBanIP').value = '';
-    refreshBanUI();
-  });
-  document.getElementById('clearBansBtn').addEventListener('click', () => {
-    if (!confirm('Clear all client-side bans? (This affects only this browser/localStorage)')) return;
-    CLIENT_BANNED_IPS = []; BANNED_USERNAMES = [];
-    localStorage.removeItem('CLIENT_BANNED_IPS'); localStorage.removeItem('BANNED_USERNAMES');
-    refreshBanUI();
-  });
-
-  // hide login box if present
-  document.getElementById('passwordBox').style.display = 'none';
 }
-
-/* Initialize: attempt to fetch IP early (non-blocking) */
-fetchIP().then(ip => {
-  // nothing else required now
-});
 </script>
-
 </body>
 </html>
