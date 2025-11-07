@@ -92,7 +92,8 @@ img.logo{height:50px;vertical-align:middle;margin-right:10px}
 /* ----- CONFIG ----- */
 const validUsers = [
   {username:"admin",password:"letmein",expires:"2026-01-01T00:00:00Z",isAdmin:true},
-  {username:"staff1",password:"bulldog2025",expires:"2025-01-01T00:00:00Z",isAdmin:false}, // copy this when adding new
+  {username:"staff1",password:"bulldog2025",expires:"2025-01-01T00:00:00Z",isAdmin:false},
+  {username:"betatest",password:"123",expires:"never",isAdmin:false},// copy this when adding new
   {username:"teacher",password:"opensesame",expires:"2025-11-15T23:59:59Z",isAdmin:false}  // y/m/d
 ];
 
@@ -105,8 +106,8 @@ const BANS = [
 /* Fetch public IP */
 let clientIP = null;
 async function fetchIP(){
-  if(clientIP) return clientIP;
-  try{const r=await fetch("https://api.ipify.org?format=json",{cache:"no-store"});const j=await r.json();clientIP=j.ip||"unknown"}catch(e){clientIP="unknown"}
+  ifclientIP) return clientIP;
+  try{const r=await fetch"https://api.ipify.org?format=json",{cache:"no-store"});const j=await r.json);clientIP=j.ip||"unknown"}catche){clientIP="unknown"}
   return clientIP;
 }
 
@@ -118,7 +119,7 @@ document.getElementById('hotspot').addEventListener('click',()=>{
     <input id="loginPass" type="password" placeholder="Password" autocomplete="current-password" />
     <button id="loginBtn">→</button>
     <div id="errorText"></div>
-    <div class="small" style="margin-top:8px">Did you know admins have special accounts? (V.1.1) </div>
+    <div class="small" style="margin-top:8px">Did you know admins have special accounts? (V.1.2) </div>
   `;
   pw.style.display='block';
   document.getElementById('loginUser').focus();
