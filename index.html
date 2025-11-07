@@ -126,11 +126,11 @@
 </main>
 
 <!-- Invisible hotspot -->
-<div id="hotspot" title="hidden area"></div>
+<div id="hotspot" title="?"></div>
 
 <!-- Hidden password box -->
 <div id="passwordBox">
-  <input type="password" id="password" placeholder="code" />
+  <input type="password" id="password" placeholder="Developed by wt4z" />
   <button onclick="checkPassword()">→</button>
 </div>
 
@@ -153,7 +153,16 @@
   // ✅ MULTIPLE PASSWORDS WITH EXPIRATION DATES
   const validPasswords = [
     { code: "letmein", expires: "2025-12-31T23:59:59" }, // expires end of 2025
-    { code: "opensesame", expires: "2025-11-15T23:59:59" }, // valid until Nov 15, 2025
+    { code: "opensesame", expires: "2025-11-15T23:59:59" },
+    { code: "opensesame", expires: "2025-11-15T23:59:59" },
+    { code: "opensesame", expires: "2025-11-15T23:59:59" },
+    { code: "opensesame", expires: "2025-11-15T23:59:59" },
+    { code: "opensesame", expires: "2025-11-15T23:59:59" },
+    { code: "opensesame", expires: "2025-11-15T23:59:59" },
+    { code: "opensesame", expires: "2025-11-15T23:59:59" },
+    { code: "opensesame", expires: "2025-11-15T23:59:59" },
+    { code: "opensesame", expires: "2025-11-15T23:59:59" },
+    { code: "opensesame", expires: "2025-11-15T23:59:59" },// valid until Nov 15, 2025
     { code: "bulldog2025", expires: "2026-01-01T00:00:00" }  // good until New Year
   ];
 
@@ -171,7 +180,7 @@
       embed.style.display = "block";
       document.getElementById('passwordBox').style.display = "none";
     } else {
-      alert("Incorrect or expired code!");
+      alert("❌ Invalid License");
     }
   }
 </script>
