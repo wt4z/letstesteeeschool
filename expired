@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Account Expired – Bullis School</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;background:#f4f7fb;color:#333;margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:32px}
+.card{max-width:720px;background:#fff;padding:28px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.06);text-align:center}
+h1{color:#e69100;margin:0 0 8px} p{color:#333;margin:0 0 12px} button{margin-top:18px;padding:10px 16px;border-radius:8px;border:none;cursor:pointer;background:#002F6C;color:#FFC726}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>Account Expired</h1>
+<p>Your account license has expired. Please contact administration to renew access.</p>
+<div><button onclick="location.href='mailto:admin@bullis.edu'">Contact Admin</button></div>
+</div>
+</body>
+</html>
