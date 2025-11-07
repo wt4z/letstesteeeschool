@@ -1,100 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Springfield High School</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #f5f5f5;
-  }
-
-  header {
-    background-color: #004080;
-    color: white;
-    padding: 20px;
-    text-align: center;
-  }
-
-  nav {
-    background-color: #e0e0e0;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-
-  nav a {
-    text-decoration: none;
-    color: #004080;
-    font-weight: bold;
-  }
-
-  main {
-    padding: 20px;
-    max-width: 800px;
-    margin: auto;
-  }
-
-  section {
-    background-color: white;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
-
-  h2 {
-    color: #004080;
-  }
-
-  /* Invisible hotspot for ghost password box */
-  #hotspot {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    width: 40px;
-    height: 40px;
-    background: transparent;
-    cursor: pointer;
-    z-index: 1000;
-  }
-
-  /* Hidden password container */
-  #passwordBox {
-    position: fixed;
-    bottom: 60px;
-    right: 10px;
-    display: none;
-  }
-
-  input, button {
-    padding: 8px;
-    font-size: 14px;
-  }
-
-  #embedContainer {
-    display: none;
-    margin-top: 20px;
-    width: 100%;
-    height: 500px;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial‑scale=1.0">
+  <title>Bullis School – Potomac</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f7fb;
+    }
+    header {
+      background-color: #002F6C; /* Bullis navy blue */
+      color: #FFC726;           /* Bullis gold */
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      background-color: #e2e8f0;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    nav a {
+      text-decoration: none;
+      color: #002F6C;
+      font-weight: bold;
+    }
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    section {
+      background-color: #ffffff;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #002F6C;
+    }
+    /* Invisible hotspot for ghost password box */
+    #hotspot {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    /* Hidden password container */
+    #passwordBox {
+      position: fixed;
+      bottom: 60px;
+      right: 10px;
+      display: none;
+    }
+    input, button {
+      padding: 8px;
+      font-size: 14px;
+    }
+    #embedContainer {
+      display: none;
+      margin-top: 20px;
+      width: 100%;
+      height: 500px;
+    }
+    footer {
+      background-color: #002F6C;
+      color: #FFC726;
+      text-align: center;
+      padding: 15px;
+    }
+    img.logo {
+      height: 50px;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+  </style>
 </head>
 <body>
 
 <header>
-  <h1>Springfield High School</h1>
-  <p>Excellence in Education Since 1975</p>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Bullis_School_logo.png" alt="Bullis School Logo" class="logo">
+  <span>Bullis School – Potomac, MD</span>
+  <p>“Caring • Challenging • Community”</p>
 </header>
 
 <nav>
   <a href="#">Home</a>
   <a href="#">About</a>
   <a href="#">Students</a>
-  <a href="#">Staff</a>
+  <a href="#">Faculty & Staff</a>
   <a href="#">Contact</a>
 </nav>
 
@@ -102,24 +104,24 @@
   <section>
     <h2>Announcements</h2>
     <ul>
-      <li>School assembly this Friday at 10 AM.</li>
-      <li>Parent-teacher conferences next week.</li>
-      <li>New library books now available.</li>
+      <li>Welcome back Week begins Monday at 8 a.m.</li>
+      <li>Bulldog Spirit Day next Friday – wear blue & gold!</li>
+      <li>Library opens extended hours during finals week.</li>
     </ul>
   </section>
 
   <section>
     <h2>Upcoming Events</h2>
     <ul>
-      <li>Soccer match: Thursday at 3 PM</li>
-      <li>Science fair: Next Monday in Gym</li>
-      <li>Drama club rehearsal: Wednesday 4-6 PM</li>
+      <li>Varsity Football: Saturday at 1 p.m. at Kline Stadium</li>
+      <li>Upper School Science Expo: Next Tuesday, 5–7 p.m.</li>
+      <li>Drama Production: “The Taming of the Shrew” – Thursday, 7 p.m.</li>
     </ul>
   </section>
 
   <section>
     <h2>Resources</h2>
-    <p>Access class schedules, homework, and announcements online. Stay up-to-date with everything happening at Springfield High!</p>
+    <p>Access your schedules, class links, and our Bulldog community portal. Stay connected, stay inspired.</p>
   </section>
 </main>
 
@@ -136,6 +138,10 @@
 <div id="embedContainer">
   <iframe src="https://myappsclasslink.pegle.com" width="100%" height="100%"></iframe>
 </div>
+
+<footer>
+  &copy; 2025 Bullis School • 10601 Falls Rd, Potomac, MD 20854
+</footer>
 
 <script>
   // Ghost hotspot click
