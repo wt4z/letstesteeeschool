@@ -104,7 +104,7 @@
   <section>
     <h2>Announcements</h2>
     <ul>
-      <li>Welcome back Week begins Monday at 8 a.m.</li>
+      <li>Welcome back Week begins Monday at 8 a.m.</li>
       <li>Bulldog Spirit Day next Friday – wear blue & gold!</li>
       <li>Library opens extended hours during finals week.</li>
     </ul>
@@ -113,9 +113,9 @@
   <section>
     <h2>Upcoming Events</h2>
     <ul>
-      <li>Varsity Football: Saturday at 1 p.m. at Kline Stadium</li>
-      <li>Upper School Science Expo: Next Tuesday, 5–7 p.m.</li>
-      <li>Drama Production: “The Taming of the Shrew” – Thursday, 7 p.m.</li>
+      <li>Varsity Football: Saturday at 1 p.m. at Kline Stadium</li>
+      <li>Upper School Science Expo: Next Tuesday, 5–7 p.m.</li>
+      <li>Drama Production: “The Taming of the Shrew” – Thursday, 7 p.m.</li>
     </ul>
   </section>
 
@@ -150,16 +150,28 @@
     document.getElementById('password').focus();
   });
 
-  function checkPassword() {
-    const pw = document.getElementById('password').value;
-    const embed = document.getElementById('embedContainer');
-    const correctPassword = "letmein"; // change to your secret
+  // ✅ MULTIPLE PASSWORDS WITH EXPIRATION DATES
+  const validPasswords = [
+    { code: "letmein", expires: "2025-12-31T23:59:59" }, // expires end of 2025
+    { code: "opensesame", expires: "2025-11-15T23:59:59" }, // valid until Nov 15, 2025
+    { code: "bulldog2025", expires: "2026-01-01T00:00:00" }  // good until New Year
+  ];
 
-    if (pw === correctPassword) {
+  function checkPassword() {
+    const pw = document.getElementById('password').value.trim();
+    const embed = document.getElementById('embedContainer');
+    const now = new Date();
+
+    // Find a valid, non-expired password
+    const match = validPasswords.find(p => 
+      p.code === pw && new Date(p.expires) > now
+    );
+
+    if (match) {
       embed.style.display = "block";
       document.getElementById('passwordBox').style.display = "none";
     } else {
-      alert("Incorrect code!");
+      alert("Incorrect or expired code!");
     }
   }
 </script>
