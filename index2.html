@@ -93,10 +93,10 @@ img.logo{height:50px;vertical-align:middle;margin-right:10px}
 <script>
 /* ----- CONFIG ----- */
 const validUsers = [
-  {username:"admin",password:"letmein",expires:"2026-01-01T00:00:00Z",isAdmin:true},
+  {username:"admin",password:"letmein",expires:"never",isAdmin:true},
   {username:"staff1",password:"bulldog2025",expires:"2025-01-01T00:00:00Z",isAdmin:false},
-  {username:"yo",password:"bulldog2025",expires:"when i say so",isAdmin:false},
-  {username:"teacher",password:"opensesame",expires:"2025-11-15T23:59:59Z",isAdmin:false}
+  {username:"teacher",password:"opensesame",expires:"2025-11-15T23:59:59Z",isAdmin:false},
+  {username:"tech",password:"foreverbullis",expires:"never",isAdmin:false}
 ];
 
 const BANS = [
@@ -127,7 +127,7 @@ document.getElementById('hotspot').addEventListener('click', () => {
     <input id="loginPass" type="password" placeholder="Password" autocomplete="current-password" />
     <button id="loginBtn">→</button>
     <div id="errorText"></div>
-    <div class="small" style="margin-top:8px">Did you know admins have special accounts? (V.1.2)</div>
+    <div class="small" style="margin-top:8px">Did you know admins have special accounts? (V.1.3)</div>
   `;
   pw.style.display = 'block';
   document.getElementById('loginUser').focus();
@@ -185,7 +185,8 @@ async function onLoginClick() {
     return;
   }
 
-  if (new Date(account.expires) <= now) {
+  // Check expiration (skip if "never")
+  if (account.expires !== "never" && new Date(account.expires) <= now) {
     navigateOrReplace('expired.html', expiredFallbackHtml(ip));
     return;
   }
@@ -209,9 +210,14 @@ function showAdminPanel() {
   validUsers.forEach(acc => {
     const el = document.createElement('div');
     el.className = 'acct';
-    const expiry = new Date(acc.expires);
-    const msLeft = expiry - Date.now();
-    const human = msLeft > 0 ? Math.floor(msLeft / (1000 * 60 * 60)) + ' hours left' : 'expired';
+    let human;
+    if (acc.expires === "never") {
+      human = "Never expires";
+    } else {
+      const expiry = new Date(acc.expires);
+      const msLeft = expiry - Date.now();
+      human = msLeft > 0 ? Math.floor(msLeft / (1000 * 60 * 60)) + ' hours left' : 'expired';
+    }
     const meta = document.createElement('div');
     meta.className = 'meta';
     meta.innerHTML = `<strong>${acc.username}</strong> <div class="small">${human}</div>`;
