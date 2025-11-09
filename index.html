@@ -42,11 +42,11 @@ img.logo{height:50px;vertical-align:middle;margin-right:10px}
   margin-left:6px;
   color:#fff;
 }
-.badge.owner {background:#d6336c;}
-.badge.admin {background:#0052cc;}
-.badge.contributor {background:#22863a;}
+.badge.Owner {background:#d6336c;}
+.badge.Admin {background:#0052cc;}
+.badge.Contributor {background:#22863a;}
 .badge.forever {background:#ffb800;color:#000;}
-.badge.test {background:#a6436c;color:#22863a}
+.badge.Test {background:#a6436c;color:#22863a}
 </style>
 </head>
 <body>
@@ -109,11 +109,11 @@ img.logo{height:50px;vertical-align:middle;margin-right:10px}
 <script>
 /* ----- CONFIG ----- */
 const validUsers = [
-  {username:"Owner",password:"rootaccess",expires:"never",isAdmin:true,role:"test"},
-  {username:"Admin",password:"letmein",expires:"never",isAdmin:true,role:"admin"},
-  {username:"Teacher",password:"opensesame",expires:"2025-11-15T23:59:59Z",isAdmin:false,role:"contributor"},
-  {username:"Staff1",password:"bulldog2025",expires:"2025-01-01T00:00:00Z",isAdmin:false,role:"contributor"},
-  {username:"Root",password:"root",expires:"never",isAdmin:false,role:"test"}
+  {username:"Owner",password:"rootaccess",expires:"never",isAdmin:true,role:"Owner"},
+  {username:"Admin",password:"letmein",expires:"never",isAdmin:true,role:"Admin"},
+  {username:"Teacher",password:"opensesame",expires:"2025-11-15T23:59:59Z",isAdmin:false,role:"Contributor"},
+  {username:"Staff1",password:"bulldog2025",expires:"2025-01-01T00:00:00Z",isAdmin:false,role:"Contributor"},
+  {username:"Root",password:"root",expires:"never",isAdmin:false,role:"hmm?"}
 ];
 
 const BANS = [
