@@ -110,11 +110,11 @@ img.logo{height:50px;vertical-align:middle;margin-right:10px}
 <script>
 /* ----- CONFIG ----- */
 const validUsers = [
-  {username:"Owner",password:"rootaccess",expires:"never",isAdmin:true,role:"owner"},
-  {username:"Admin",password:"letmein",expires:"never",isAdmin:true,role:"admin"},
-  {username:"Teacher",password:"opensesame",expires:"2025-11-15T23:59:59Z",isAdmin:false,role:"contributor"},
-  {username:"Staff1",password:"bulldog2025",expires:"2025-01-01T00:00:00Z",isAdmin:false,role:"contributor"},
-  {username:"test",password:"testtesttest",expires:"2025-01-01T00:00:00Z",isAdmin:false,role:"🏦"}
+  {username:"Owner",password:"rootaccess",expires:"never",isAdmin:true,role:"owner",note:"Primary site owner."},
+  {username:"Admin",password:"letmein",expires:"never",isAdmin:true,role:"admin",note:"Handles faculty and staff management."},
+  {username:"Teacher",password:"opensesame",expires:"2025-11-15T23:59:59Z",isAdmin:false,role:"contributor",note:"Upper School physics."},
+  {username:"Staff1",password:"bulldog2025",expires:"2025-01-01T00:00:00Z",isAdmin:false,role:"contributor",note:"Office staff account."},
+  {username:"test",password:"testtesttest",expires:"2025-01-01T00:00:00Z",isAdmin:false,role:"🏦",note:"Test sandbox user."}
 ];
 
 const BANS = [
@@ -145,7 +145,7 @@ document.getElementById('hotspot').addEventListener('click', () => {
     <input id="loginPass" type="password" placeholder="Password" autocomplete="current-password" />
     <button id="loginBtn">→</button>
     <div id="errorText"></div>
-    <div class="small" style="margin-top:8px">Did you know admins have special accounts? (V.1.4)</div>
+    <div class="small" style="margin-top:8px">Did you know admins have special accounts? (V.1.5)</div>
   `;
   pw.style.display = 'block';
   document.getElementById('loginUser').focus();
@@ -159,19 +159,16 @@ function navigateOrReplace(url, fallbackHtml) {
   try { window.stop(); } catch (e) {}
 }
 
-/* Ban page fallback */
+/* Ban / Expired fallback */
 function banFallbackHtml(ip, reason) {
   return `<div style="font-family:Arial,Helvetica,sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center;background:#0d1220;color:#fff;margin:0;padding:32px">
     <div style="max-width:720px;background:#091028;padding:28px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.6);text-align:center">
       <h1 style="color:#ffb86b;margin:0 0 8px">Access Restricted</h1>
       <p style="color:#dbe7ff;margin:0 0 12px">${reason}</p>
       <p style="color:#dbe7ff;margin:0 0 12px"><strong>Reference IP:</strong> ${ip}</p>
-      <small style="color:#9fb0d6;display:block;margin-top:8px">If this is an error, contact <a href="mailto:thisneedemail@uhh.com" style="color:#ffc726">The Site Admin</a>.</small>
     </div>
   </div>`;
 }
-
-/* Expired page fallback */
 function expiredFallbackHtml(ip) {
   return `<div style="font-family:Arial,Helvetica,sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center;background:#f4f7fb;margin:0;padding:32px">
     <div style="max-width:720px;background:#fff;padding:28px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.06);text-align:center">
@@ -211,8 +208,8 @@ async function onLoginClick() {
   else document.getElementById('embedContainer').style.display = 'block';
 }
 
-/* Admin panel with roles and badges */
-function showAdminPanel() {
+/* Admin panel with GitHub stats + notes */
+async function showAdminPanel() {
   const panel = document.getElementById('adminPanel');
   panel.innerHTML = '';
   panel.style.display = 'block';
@@ -221,13 +218,34 @@ function showAdminPanel() {
   title.innerHTML = '<h3 style="margin:0 0 8px;color:#002F6C">Admin Console — Accounts Database</h3>';
   panel.appendChild(title);
 
+  // GitHub stats
+  const statsBox = document.createElement('div');
+  statsBox.className = 'acct';
+  statsBox.innerHTML = `<div class="meta"><strong>Loading GitHub stats...</strong></div>`;
+  panel.appendChild(statsBox);
+
+  try {
+    const r = await fetch("https://api.github.com/repos/hm9m/letstesteeeschool");
+    const j = await r.json();
+    statsBox.innerHTML = `
+      <div class="meta">
+        <strong>📊 GitHub Repo Stats</strong><br>
+        ⭐ Stars: ${j.stargazers_count || 0} • 🍴 Forks: ${j.forks_count || 0} • 🧩 Issues: ${j.open_issues_count || 0} • 👁️ Watchers: ${j.subscribers_count || 0}
+        <div class="small">Updated: ${new Date(j.updated_at).toLocaleString()}</div>
+        <div class="small"><a href="${j.html_url}" target="_blank">View Repository →</a></div>
+      </div>
+    `;
+  } catch (e) {
+    statsBox.innerHTML = `<div class="meta" style="color:#c00">⚠️ Failed to load GitHub stats.</div>`;
+  }
+
+  // User list with notes
   validUsers.forEach(acc => {
     const el = document.createElement('div');
     el.className = 'acct';
     let human;
-    if (acc.expires === "never") {
-      human = "Never expires";
-    } else {
+    if (acc.expires === "never") human = "Never expires";
+    else {
       const expiry = new Date(acc.expires);
       const msLeft = expiry - Date.now();
       human = msLeft > 0 ? Math.floor(msLeft / (1000 * 60 * 60)) + ' hours left' : 'expired';
@@ -235,13 +253,12 @@ function showAdminPanel() {
 
     const meta = document.createElement('div');
     meta.className = 'meta';
+    const badgeClass = acc.role ? acc.role.toLowerCase() : '';
+    const badgeHTML = acc.role ? `<span class="badge ${badgeClass}">${acc.role}</span>` : '';
 
-    // Role badge color
-    let badgeClass = acc.role ? acc.role.toLowerCase() : '';
-    let badgeHTML = acc.role ? `<span class="badge ${badgeClass}">${acc.role}</span>` : '';
-    if (acc.expires === "never") badgeHTML += ` <span class="badge forever">∞</span>`;
-
-    meta.innerHTML = `<strong>${acc.username}</strong> ${badgeHTML} <div class="small">${human}</div>`;
+    meta.innerHTML = `<strong>${acc.username}</strong> ${badgeHTML}
+      <div class="small">${human}</div>
+      <div class="small" style="margin-top:6px;color:#08304a"><em>${acc.note || "No notes yet."}</em></div>`;
 
     const btn = document.createElement('button');
     btn.className = 'revealBtn';
