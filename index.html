@@ -5,54 +5,115 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Bullis School – Potomac</title>
 <style>
-:root{
+:root {
   --gold:#FFC726;
   --notif-bg:rgba(44,44,44,0.92);
 }
-body{font-family:Arial,sans-serif;margin:0;background:#f4f7fb;color:#08304a}
-header{background:#002F6C;color:var(--gold);padding:20px;text-align:center}
-nav{background:#e2e8f0;padding:10px;display:flex;justify-content:center;gap:20px}
-nav a{text-decoration:none;color:#002F6C;font-weight:bold}
-main{padding:20px;max-width:900px;margin:auto}
-section{background:#fff;padding:15px;margin-bottom:15px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,.1)}
-h2{color:#002F6C}
-footer{background:#002F6C;color:var(--gold);text-align:center;padding:15px}
-img.logo{height:50px;vertical-align:middle;margin-right:10px}
-#passwordBox{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border:2px solid #002F6C;border-radius:8px;padding:20px;width:320px;box-shadow:0 2px 6px rgba(0,0,0,.2);}
-#passwordBox input{display:block;margin-bottom:10px;padding:8px;font-size:14px;border:1px solid #ccc;border-radius:4px;width:100%;box-sizing:border-box;}
-#passwordBox button{padding:10px;font-size:14px;background:#002F6C;color:var(--gold);border:none;border-radius:4px;cursor:pointer;width:100%;}
-#errorText{color:#c0392b;font-size:13px;margin-top:6px;display:none;text-align:center;}
-#embedContainer{display:none;margin-top:20px;width:100%;height:500px}
-#notifArea{position:fixed;left:18px;bottom:18px;z-index:1400;display:flex;flex-direction:column-reverse;gap:10px;max-width:360px}
-.notif{background:var(--notif-bg);color:#fff;padding:12px 14px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,0.45);border:1px solid rgba(255,199,38,0.12);display:flex;gap:10px;align-items:flex-start;min-width:220px;position:relative;overflow:hidden}
+body {font-family:Arial,sans-serif;margin:0;background:#f4f7fb;color:#08304a}
+header {background:#002F6C;color:var(--gold);padding:20px;text-align:center}
+nav {background:#e2e8f0;padding:10px;display:flex;justify-content:center;gap:20px}
+nav a {text-decoration:none;color:#002F6C;font-weight:bold}
+main {padding:20px;max-width:900px;margin:auto}
+section {background:#fff;padding:15px;margin-bottom:15px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,.1)}
+h2 {color:#002F6C}
+footer {background:#002F6C;color:var(--gold);text-align:center;padding:15px}
+img.logo {height:50px;vertical-align:middle;margin-right:10px}
+
+/* secret login hotspot */
+#hotspot {
+  position:fixed;bottom:10px;right:10px;width:40px;height:40px;background:transparent;cursor:pointer;z-index:1200
+}
+#passwordBox {
+  position:fixed;bottom:60px;right:10px;display:none;z-index:1201;background:#fff;
+  border:2px solid #002F6C;border-radius:8px;padding:10px;box-shadow:0 2px 6px rgba(0,0,0,.15);
+  width:320px
+}
+#passwordBox input {display:block;margin-bottom:6px;padding:8px;font-size:14px;border:1px solid #ccc;border-radius:4px;width:100%}
+#passwordBox button {
+  padding:8px;font-size:14px;background:#002F6C;color:var(--gold);
+  border:none;border-radius:4px;cursor:pointer;width:100%
+}
+
+/* admin panel + announcements */
+#adminPanel {display:none;padding:12px;background:#fff;border-radius:8px;border:2px solid #002F6C;
+  box-shadow:0 2px 6px rgba(0,0,0,.12);margin-top:20px}
+.acct {display:flex;align-items:center;justify-content:space-between;border:1px solid #e6eef9;
+  padding:8px;border-radius:6px;margin-bottom:8px;background:#f8fbff}
+.revealBtn {background:#002F6C;color:var(--gold);border:none;padding:6px 8px;border-radius:6px;cursor:pointer}
+.badge {display:inline-block;padding:2px 6px;font-size:11px;font-weight:bold;border-radius:4px;margin-left:6px;color:#fff}
+.badge.owner{background:#d6336c}
+.badge.admin{background:#0052cc}
+.badge.contributor{background:#22863a}
+.badge.forever{background:#ffb800;color:#000}
+
+/* embed area */
+#embedArea {display:none;margin-top:15px;background:#fff;padding:12px;border-radius:8px;border:1px solid #e6eef9;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+#embedArea .embedHeader {display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+#embedArea iframe {width:100%;height:600px;border-radius:8px;border:1px solid #e6eef9;display:block}
+#embedArea .fallback {font-size:13px;margin-top:8px}
+
+/* glass command bar */
+#cmdOverlay {
+  position:fixed;left:50%;transform:translateX(-50%);bottom:22%;width:88%;max-width:900px;
+  z-index:1300;display:none;justify-content:center;align-items:center;pointer-events:auto
+}
+#cmdPanel {
+  width:100%;border-radius:12px;padding:14px 16px;box-shadow:0 12px 30px rgba(0,0,0,0.4);
+  border:1px solid rgba(255,199,38,0.25);
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+  backdrop-filter: blur(8px);display:flex;gap:12px;align-items:center
+}
+#cmdInput {
+  flex:1;background:rgba(255,255,255,0.03);border:none;outline:none;color:var(--gold);
+  padding:10px 12px;border-radius:8px;font-size:15px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,0.02)
+}
+#cmdSubmit {
+  background:transparent;border:1px solid rgba(255,199,38,0.18);
+  color:var(--gold);padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:bold
+}
+
+/* notifications */
+#notifArea {
+  position:fixed;left:18px;bottom:18px;z-index:1400;display:flex;flex-direction:column-reverse;
+  gap:10px;max-width:360px
+}
+.notif {
+  background:var(--notif-bg);color:#fff;padding:12px 14px;border-radius:10px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.45);
+  border:1px solid rgba(255,199,38,0.12);
+  display:flex;gap:10px;align-items:flex-start;min-width:220px;position:relative
+}
 .notif strong{color:var(--gold)}
-.notif .closeBtn{position:absolute;right:8px;top:6px;background:transparent;border:none;color:#fff;font-weight:bold;cursor:pointer;font-size:14px}
-#clearAllBtn{display:none;align-self:flex-start;padding:6px 10px;border-radius:8px;border:1px solid rgba(255,199,38,0.18);background:transparent;color:var(--gold);cursor:pointer;margin-bottom:6px}
-.notif .meta{font-size:12px;color:#e8e8e8;margin-top:6px}
+.notif .closeBtn{
+  position:absolute;right:8px;top:6px;background:transparent;border:none;
+  color:#fff;font-weight:bold;cursor:pointer;font-size:14px
+}
+#clearAllBtn {
+  display:none;align-self:flex-start;padding:6px 10px;border-radius:8px;
+  border:1px solid rgba(255,199,38,0.18);background:transparent;
+  color:var(--gold);cursor:pointer;margin-bottom:6px
+}
 </style>
 </head>
-<body>
 
+<body>
 <header>
-  <img src="https://resources.finalsite.net/images/f_auto,q_auto,t_image_size_1/v1721670094/bullis/vbqhybisnzf52q6lwhbd/SecondaryBulldogFullColor.png" alt="Bulldog Logo" class="logo">
+  <img src="https://resources.finalsite.net/images/f_auto,q_auto,t_image_size_1/v1721670094/bullis/vbqhybisnzf52q6lwhbd/SecondaryBulldogFullColor.png" class="logo">
   <span>Bullis School – Potomac, MD</span>
   <p>“Caring • Challenging • Community”</p>
 </header>
 
 <nav>
-  <a href="#">Home</a>
-  <a href="#">About</a>
-  <a href="#">Students</a>
-  <a href="#">Faculty & Staff</a>
-  <a href="#">Contact</a>
+  <a href="#">Home</a><a href="#">About</a><a href="#">Students</a>
+  <a href="#">Faculty & Staff</a><a href="#">Contact</a>
 </nav>
 
 <main>
-  <section id="announcementsSection">
+  <section id="announcementsSection" style="display:none;">
     <h2>Announcements</h2>
     <ul id="announcementsList"><li>Loading announcements...</li></ul>
   </section>
-
   <section>
     <h2>Upcoming Events</h2>
     <ul>
@@ -61,107 +122,223 @@ img.logo{height:50px;vertical-align:middle;margin-right:10px}
       <li>Drama Production: “The Taming of the Shrew” – Thursday, 7 p.m.</li>
     </ul>
   </section>
-
   <section>
     <h2>Resources</h2>
     <p>Access your schedules, class links, and our Bulldog community portal. Stay connected, stay inspired.</p>
   </section>
 
-  <div id="embedContainer">
-    <iframe src="https://myappsclasslink.pegle.com" width="100%" height="100%" style="border:0"></iframe>
-  </div>
+  <!-- Embed area: becomes visible after successful login -->
+  <div id="embedArea" aria-live="polite"></div>
+
+  <div id="adminPanel"></div>
 </main>
 
-<div id="passwordBox">
-  <input id="loginUser" type="text" placeholder="Username">
-  <input id="loginPass" type="password" placeholder="Password">
-  <button id="loginBtn">Login</button>
-  <div id="errorText"></div>
+<div id="hotspot" title="secret"></div>
+<div id="passwordBox"></div>
+<div id="cmdOverlay">
+  <div id="cmdPanel">
+    <input id="cmdInput" placeholder="Type command (help → list commands)" autocomplete="off">
+    <button id="cmdSubmit">Run</button>
+  </div>
 </div>
 
-<div id="notifArea" aria-live="polite" aria-atomic="false">
+<div id="notifArea">
   <button id="clearAllBtn">Clear All</button>
 </div>
 
-<footer>
-  &copy; 2025 Bullis School • 10601 Falls Rd, Potomac, MD 20854
-</footer>
+<footer>© 2025 Bullis School • 10601 Falls Rd, Potomac, MD 20854</footer>
 
 <script>
-// Hardcoded users (replace/add as needed)
-const users = [
-  { username: "student1", password: "pass123", role: "user" },
-  { username: "student2", password: "abc123", role: "user" },
-  { username: "admin", password: "admin123", role: "admin" }
+const validUsers = [
+  {username:"owner", password:"1234", role:"Owner", isAdmin:true, expires:"never", notes:"Full access"},
+  {username:"admin", password:"abcd", role:"Admin", isAdmin:true, expires:"never", notes:"Manages site"},
+  {username:"teacher", password:"pass1", role:"Contributor", isAdmin:false, expires:"2025-12-30", notes:"Faculty"},
+  {username:"student", password:"4321", role:"Student", isAdmin:false, expires:"2025-12-01", notes:"Regular user"}
 ];
 
 const NOTIF_TIMEOUT_MS = 30000;
+let currentUser = null;
 
-function createNotification(title,message,options={}) {
-  const notif = document.createElement("div");
-  notif.className="notif";
-  notif.innerHTML=`<div><strong>${title}</strong><div class="meta">${message}</div></div>`;
-  const closeBtn = document.createElement("button");
-  closeBtn.className="closeBtn"; closeBtn.innerHTML="✕";
-  closeBtn.addEventListener("click",()=>{ notif.remove(); updateClearBtn(); });
-  notif.appendChild(closeBtn);
-  document.getElementById("notifArea").appendChild(notif);
+function createNotification(title,message,opts={}) {
+  const n = document.createElement("div");
+  n.className="notif";
+  n.innerHTML=`<div><strong>${title}</strong><div class="meta">${message}</div></div>`;
+  const x=document.createElement("button");
+  x.className="closeBtn";x.innerText="✕";
+  x.onclick=()=>{n.remove();updateClearBtn();};
+  n.appendChild(x);
+  document.getElementById("notifArea").appendChild(n);
   updateClearBtn();
-  if(!options.sticky) setTimeout(()=>{ notif.remove(); updateClearBtn(); }, options.timeoutMs||NOTIF_TIMEOUT_MS);
+  if(!opts.sticky) setTimeout(()=>{n.remove();updateClearBtn();}, opts.timeoutMs||NOTIF_TIMEOUT_MS);
 }
-
 function updateClearBtn(){
-  document.getElementById("clearAllBtn").style.display = document.querySelectorAll("#notifArea .notif").length>1?"inline-block":"none";
+  document.getElementById("clearAllBtn").style.display =
+    document.querySelectorAll("#notifArea .notif").length>1?"inline-block":"none";
+}
+document.getElementById("clearAllBtn").onclick=()=>{
+  document.querySelectorAll("#notifArea .notif").forEach(e=>e.remove());
+  updateClearBtn();
+};
+
+// login
+document.getElementById("hotspot").addEventListener("click",()=>{
+  const box=document.getElementById("passwordBox");
+  box.innerHTML=`
+    <input id="loginUser" placeholder="Username">
+    <input id="loginPass" type="password" placeholder="Password">
+    <button id="loginBtn">→</button>`;
+  box.style.display="block";
+  document.getElementById("loginBtn").onclick=onLoginClick;
+});
+
+function onLoginClick(){
+  const u=document.getElementById("loginUser").value.trim();
+  const p=document.getElementById("loginPass").value.trim();
+  const acc=validUsers.find(a=>a.username===u && a.password===p);
+  if(!acc){alert("Invalid credentials");return;}
+  const now=new Date();
+  if(acc.expires!=="never" && new Date(acc.expires)<now){
+    alert("Account expired.");return;
+  }
+  currentUser=acc;
+  document.getElementById("passwordBox").style.display="none";
+  document.getElementById("announcementsSection").style.display="block";
+  loadAnnouncements();
+
+  // show embedded class apps for any successfully logged-in user
+  showEmbeddedClassApps();
+
+  if(acc.isAdmin) showAdminPanel();
 }
 
-document.getElementById("clearAllBtn").addEventListener("click",()=>{
-  document.querySelectorAll("#notifArea .notif").forEach(n=>n.remove());
-  updateClearBtn();
-});
+// show embedded site (with fallback link)
+function showEmbeddedClassApps(){
+  const embedArea = document.getElementById("embedArea");
+  const targetUrl = "https://myappsclasslink.pegle.com";
+  embedArea.innerHTML = `
+    <div class="embedHeader">
+      <h3 style="margin:0;color:#002F6C">Class Apps</h3>
+      <div style="font-size:13px">
+        <a href="${targetUrl}" target="_blank" rel="noopener noreferrer" style="color:#002F6C;text-decoration:underline">Open in new tab</a>
+      </div>
+    </div>
+    <div class="embedWrap">
+      <iframe src="${targetUrl}" title="Class Apps (myappsclasslink)" sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="lazy"></iframe>
+      <div class="fallback">If the site doesn't appear above, click "Open in new tab" to access it directly.</div>
+    </div>
+  `;
+  embedArea.style.display = "block";
+}
 
-document.getElementById("loginBtn").addEventListener("click",()=>{
-  const username = document.getElementById("loginUser").value.trim();
-  const password = document.getElementById("loginPass").value.trim();
-  const user = users.find(u=>u.username===username && u.password===password);
-  const errorText = document.getElementById("errorText");
-
-  if(!user){
-    errorText.style.display="block";
-    errorText.textContent="Invalid username or password";
-    return;
-  }
-
-  // Login success
-  document.getElementById("passwordBox").style.display="none";
-  document.getElementById("embedContainer").style.display="block";
-  createNotification("Login Successful", `Welcome, ${user.username}`);
-  if(user.role==="admin"){
-    createNotification("Admin Access", "Admin panel would be shown here");
-  }
-});
-
-// Load announcements
-async function loadAnnouncements(limitLastN=null){
-  const list = document.getElementById("announcementsList");
+// announcements
+async function loadAnnouncements(){
+  const list=document.getElementById("announcementsList");
   try{
-    const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQ_-w-DAPezbAzU8xZOylF9OnrPxen42KrzJ6MayaRzHxCcj8i6TjVDGfkqidkb2ouMxnit-ocEay61/pub?output=csv");
-    const text = await res.text();
-    const lines = text.trim().split("\n");
-    if(lines.length<=1){ list.innerHTML="<li>No announcements</li>"; return; }
-    const rows = lines.slice(1);
-    if(limitLastN) rows.splice(0, rows.length-limitLastN);
+    const res=await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQ_-w-DAPezbAzU8xZOylF9OnrPxen42KrzJ6MayaRzHxCcj8i6TjVDGfkqidkb2ouMxnit-ocEay61/pub?output=csv");
+    const text=await res.text();
+    const lines=text.trim().split("\n").slice(1);
     list.innerHTML="";
-    rows.forEach(r=>{
-      const cols = r.split(",");
-      const li = document.createElement("li");
-      li.innerHTML=`<strong>${cols[0].trim()}</strong>: ${cols[1]?.trim()||""}`;
+    lines.forEach(l=>{
+      const [t,m]=l.split(",");
+      const li=document.createElement("li");
+      li.innerHTML=`<strong>${t}</strong>: ${m}`;
       list.appendChild(li);
     });
-  }catch(e){ list.innerHTML="<li>Failed to load announcements</li>"; console.error(e); }
+  }catch(e){
+    list.innerHTML="<li>Failed to load announcements</li>";
+  }
+}
+setInterval(loadAnnouncements,60000);
+
+// admin panel
+function showAdminPanel(){
+  const panel=document.getElementById("adminPanel");
+  panel.innerHTML="<h3 style='margin-bottom:8px;color:#002F6C'>Admin Console</h3>";
+  panel.style.display="block";
+  validUsers.forEach(acc=>{
+    const el=document.createElement("div");
+    el.className="acct";
+    const meta=document.createElement("div");
+    meta.innerHTML=`<strong>${acc.username}</strong> <span class='badge ${acc.role.toLowerCase()}'>${acc.role}</span>`;
+    const btn=document.createElement("button");
+    btn.className="revealBtn";btn.textContent="View";
+    btn.onclick=()=>{
+      const existing=el.querySelector(".revealBox");
+      if(existing){existing.remove();return;}
+      const box=document.createElement("div");
+      box.className="revealBox";
+      box.style="margin-top:8px;padding:8px;border:1px solid #dde9fb;border-radius:6px";
+      box.innerHTML=`
+        <div>Username: <strong>${acc.username}</strong></div>
+        <div>Password: <strong>${acc.password}</strong></div>
+        <div>Expires: ${acc.expires}</div>
+        <div>Role: ${acc.role}</div>
+        <div>Notes: ${acc.notes}</div>`;
+      el.appendChild(box);
+    };
+    el.appendChild(meta);
+    el.appendChild(btn);
+    panel.appendChild(el);
+  });
 }
 
-loadAnnouncements();
-</script>
+// command bar
+const cmdOverlay=document.getElementById("cmdOverlay");
+const cmdInput=document.getElementById("cmdInput");
+const cmdSubmit=document.getElementById("cmdSubmit");
 
+function toggleCmdBar(force){
+  if(!currentUser||!currentUser.isAdmin){
+    createNotification("Access Denied","Admins only");
+    return;
+  }
+  const shown=cmdOverlay.style.display==="flex";
+  const show=typeof force==="boolean"?force:!shown;
+  cmdOverlay.style.display=show?"flex":"none";
+  if(show){cmdInput.focus();cmdInput.select();}
+}
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="'"){e.preventDefault();toggleCmdBar();}
+});
+cmdSubmit.onclick=()=>runCommand(cmdInput.value.trim());
+cmdInput.addEventListener("keydown",e=>{
+  if(e.key==="Enter")runCommand(cmdInput.value.trim());
+});
+
+async function runCommand(raw){
+  if(!raw)return;
+  const [cmd,...args]=raw.split(/\s+/);
+  switch(cmd.toLowerCase()){
+    case"help":
+      createNotification("Commands","help • gitstats • viewinfo [username] • reload • clear");
+      break;
+    case"gitstats":
+      createNotification("GitHub","Fetching...");
+      try{
+        const r=await fetch("https://api.github.com/repos/hm9m/letstesteeeschool");
+        const j=await r.json();
+        createNotification("GitHub Stats",`⭐ ${j.stargazers_count} • 🍴 ${j.forks_count} • 🐛 ${j.open_issues_count}`);
+      }catch(e){createNotification("GitHub Error",e.message);}
+      break;
+    case"viewinfo":
+      if(!args[0]){createNotification("Usage","viewinfo [username]");break;}
+      const user=validUsers.find(u=>u.username===args[0]);
+      if(!user){createNotification("Not found",args[0]);break;}
+      createNotification("User Info",
+        `👤 ${user.username}<br>🔑 ${user.password}<br>🎭 ${user.role}<br>⏰ ${user.expires}<br>📝 ${user.notes}`,{sticky:true});
+      break;
+    case"reload":
+      location.reload();
+      break;
+    case"clear":
+      document.querySelectorAll(".notif").forEach(e=>e.remove());
+      updateClearBtn();
+      break;
+    default:
+      createNotification("Unknown Command",cmd);
+  }
+}
+</script>
 </body>
 </html>
