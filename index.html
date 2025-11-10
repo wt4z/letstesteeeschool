@@ -18,30 +18,11 @@ section{background:#fff;padding:15px;margin-bottom:15px;border-radius:8px;box-sh
 h2{color:#002F6C}
 footer{background:#002F6C;color:var(--gold);text-align:center;padding:15px}
 img.logo{height:50px;vertical-align:middle;margin-right:10px}
-#hotspot{position:fixed;bottom:10px;right:10px;width:40px;height:40px;background:transparent;cursor:pointer;z-index:1200}
-#passwordBox{position:fixed;bottom:60px;right:10px;display:none;z-index:1201;background:#fff;border:2px solid #002F6C;border-radius:8px;padding:10px;box-shadow:0 2px 6px rgba(0,0,0,.15);width:320px}
-#passwordBox input{display:block;margin-bottom:6px;padding:8px;font-size:14px;border:1px solid #ccc;border-radius:4px;width:100%;box-sizing:border-box}
-#passwordBox button{padding:8px;font-size:14px;background:#002F6C;color:var(--gold);border:none;border-radius:4px;cursor:pointer;width:100%}
-#errorText{color:#c0392b;font-size:13px;margin-top:6px;display:none}
+#passwordBox{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border:2px solid #002F6C;border-radius:8px;padding:20px;width:320px;box-shadow:0 2px 6px rgba(0,0,0,.2);}
+#passwordBox input{display:block;margin-bottom:10px;padding:8px;font-size:14px;border:1px solid #ccc;border-radius:4px;width:100%;box-sizing:border-box;}
+#passwordBox button{padding:10px;font-size:14px;background:#002F6C;color:var(--gold);border:none;border-radius:4px;cursor:pointer;width:100%;}
+#errorText{color:#c0392b;font-size:13px;margin-top:6px;display:none;text-align:center;}
 #embedContainer{display:none;margin-top:20px;width:100%;height:500px}
-#adminPanel{display:none;padding:12px;background:#fff;border-radius:8px;border:2px solid #002F6C;box-shadow:0 2px 6px rgba(0,0,0,.12);margin-top:20px}
-.acct{display:flex;align-items:center;justify-content:space-between;border:1px solid #e6eef9;padding:8px;border-radius:6px;margin-bottom:8px;background:#f8fbff}
-.acct .meta{font-size:14px;color:#08304a}
-.revealBtn{background:#002F6C;color:var(--gold);border:none;padding:6px 8px;border-radius:6px;cursor:pointer}
-.small{font-size:13px;color:#485b6b}
-.badge{display:inline-block;padding:2px 6px;font-size:11px;font-weight:bold;border-radius:4px;margin-left:6px;color:#fff}
-.badge.owner{background:#d6336c}
-.badge.admin{background:#0052cc}
-.badge.contributor{background:#22863a}
-.badge.forever{background:#ffb800;color:#000}
-.badge.supporter{background:#FFFF00;color:#394361}
-.badge.🏦{background:#FFFF00;color:#394361}
-#announcementsSection{display:none;}
-#cmdOverlay{position:fixed;left:50%;transform:translateX(-50%);bottom:22%;width:88%;max-width:900px;z-index:1300;display:none;justify-content:center;align-items:center;pointer-events:auto}
-#cmdPanel{width:100%;border-radius:12px;padding:14px 16px;box-shadow:0 12px 30px rgba(0,0,0,0.4);border:1px solid rgba(255,199,38,0.25);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));backdrop-filter: blur(8px);display:flex;gap:12px;align-items:center}
-#cmdInput{flex:1;background:rgba(255,255,255,0.03);border:none;outline:none;color:var(--gold);padding:10px 12px;border-radius:8px;font-size:15px;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.02)}
-#cmdSubmit{background:transparent;border:1px solid rgba(255,199,38,0.18);color:var(--gold);padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:bold}
-#cmdHint{color:#ddd;font-size:13px;margin-left:8px}
 #notifArea{position:fixed;left:18px;bottom:18px;z-index:1400;display:flex;flex-direction:column-reverse;gap:10px;max-width:360px}
 .notif{background:var(--notif-bg);color:#fff;padding:12px 14px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,0.45);border:1px solid rgba(255,199,38,0.12);display:flex;gap:10px;align-items:flex-start;min-width:220px;position:relative;overflow:hidden}
 .notif strong{color:var(--gold)}
@@ -86,19 +67,16 @@ img.logo{height:50px;vertical-align:middle;margin-right:10px}
     <p>Access your schedules, class links, and our Bulldog community portal. Stay connected, stay inspired.</p>
   </section>
 
-  <div id="adminPanel" aria-hidden="true"></div>
-  <div id="embedContainer"><iframe src="https://myappsclasslink.pegle.com" width="100%" height="100%" style="border:0"></iframe></div>
+  <div id="embedContainer">
+    <iframe src="https://myappsclasslink.pegle.com" width="100%" height="100%" style="border:0"></iframe>
+  </div>
 </main>
 
-<div id="hotspot" title="secret"></div>
-<div id="passwordBox"></div>
-
-<div id="cmdOverlay" aria-hidden="true">
-  <div id="cmdPanel" role="dialog" aria-label="Admin command bar">
-    <input id="cmdInput" placeholder="Type command (help → list commands)" autocomplete="off">
-    <button id="cmdSubmit">Run</button>
-    <div id="cmdHint" aria-hidden="true">Press ' to open/close</div>
-  </div>
+<div id="passwordBox">
+  <input id="loginUser" type="text" placeholder="Username">
+  <input id="loginPass" type="password" placeholder="Password">
+  <button id="loginBtn">Login</button>
+  <div id="errorText"></div>
 </div>
 
 <div id="notifArea" aria-live="polite" aria-atomic="false">
@@ -110,30 +88,15 @@ img.logo{height:50px;vertical-align:middle;margin-right:10px}
 </footer>
 
 <script>
-const SHEET_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQKXYi7qzpIctH1NwhbKyrP8jyl06p85XMQJxNci8fZvzabyLNo0aChyfRNX2-WOlWdF4qT0LnCD37X/pub?output=csv";
-let validUsers = [], currentUser = null;
+// Hardcoded users (replace/add as needed)
+const users = [
+  { username: "student1", password: "pass123", role: "user" },
+  { username: "student2", password: "abc123", role: "user" },
+  { username: "admin", password: "admin123", role: "admin" }
+];
+
 const NOTIF_TIMEOUT_MS = 30000;
 
-// Load users from CSV
-async function loadUsersFromSheet(){
-  try{
-    const res = await fetch(SHEET_CSV+"?cachebust="+Date.now());
-    const text = await res.text();
-    const lines = text.trim().split("\n");
-    const headers = lines[0].split(",");
-    validUsers = lines.slice(1).map(line=>{
-      const cols = line.split(",");
-      let user = {};
-      headers.forEach((h,i)=>user[h.trim()] = (cols[i]||"").trim());
-      user.isAdmin = user.isAdmin==="true";
-      return user;
-    });
-  }catch(e){ console.error(e); }
-}
-loadUsersFromSheet();
-setInterval(loadUsersFromSheet,60000);
-
-// Notifications
 function createNotification(title,message,options={}) {
   const notif = document.createElement("div");
   notif.className="notif";
@@ -146,48 +109,38 @@ function createNotification(title,message,options={}) {
   updateClearBtn();
   if(!options.sticky) setTimeout(()=>{ notif.remove(); updateClearBtn(); }, options.timeoutMs||NOTIF_TIMEOUT_MS);
 }
+
 function updateClearBtn(){
   document.getElementById("clearAllBtn").style.display = document.querySelectorAll("#notifArea .notif").length>1?"inline-block":"none";
 }
+
 document.getElementById("clearAllBtn").addEventListener("click",()=>{
   document.querySelectorAll("#notifArea .notif").forEach(n=>n.remove());
   updateClearBtn();
 });
 
-// Login logic
-async function onLoginClick(){
-  await loadUsersFromSheet();
-  const userInput=document.getElementById('loginUser').value.trim();
-  const passInput=document.getElementById('loginPass').value.trim();
-  const account = validUsers.find(u=>u.username===userInput);
-  if(!account){ alert("Invalid username"); return; }
-  currentUser = account;
+document.getElementById("loginBtn").addEventListener("click",()=>{
+  const username = document.getElementById("loginUser").value.trim();
+  const password = document.getElementById("loginPass").value.trim();
+  const user = users.find(u=>u.username===username && u.password===password);
+  const errorText = document.getElementById("errorText");
 
-  document.getElementById('passwordBox').style.display='none';
-  document.getElementById('announcementsSection').style.display='block';
-  loadAnnouncements(10);
-
-  if(account.isAdmin){
-    showAdminPanel();
-    document.getElementById("embedContainer").style.display='none';
-  } else {
-    document.getElementById("embedContainer").style.display='block';
+  if(!user){
+    errorText.style.display="block";
+    errorText.textContent="Invalid username or password";
+    return;
   }
-}
 
-document.getElementById('hotspot').addEventListener('click',()=>{
-  const pw = document.getElementById('passwordBox');
-  pw.innerHTML = `
-    <input id="loginUser" type="text" placeholder="Username" autocomplete="username">
-    <input id="loginPass" type="password" placeholder="Password" autocomplete="current-password">
-    <button id="loginBtn">→</button>
-    <div id="errorText"></div>`;
-  pw.style.display='block';
-  document.getElementById('loginUser').focus();
-  document.getElementById('loginBtn').addEventListener('click', onLoginClick);
+  // Login success
+  document.getElementById("passwordBox").style.display="none";
+  document.getElementById("embedContainer").style.display="block";
+  createNotification("Login Successful", `Welcome, ${user.username}`);
+  if(user.role==="admin"){
+    createNotification("Admin Access", "Admin panel would be shown here");
+  }
 });
 
-// Announcements
+// Load announcements
 async function loadAnnouncements(limitLastN=null){
   const list = document.getElementById("announcementsList");
   try{
@@ -207,14 +160,7 @@ async function loadAnnouncements(limitLastN=null){
   }catch(e){ list.innerHTML="<li>Failed to load announcements</li>"; console.error(e); }
 }
 
-// Admin panel
-function showAdminPanel(){
-  const panel = document.getElementById("adminPanel");
-  panel.innerHTML=''; panel.style.display='block'; panel.setAttribute('aria-hidden','false');
-  const title=document.createElement('div');
-  title.innerHTML='<h3 style="margin:0 0 8px;color:#002F6C">Admin Console — Accounts Database</h3>';
-  panel.appendChild(title);
-}
+loadAnnouncements();
 </script>
 
 </body>
